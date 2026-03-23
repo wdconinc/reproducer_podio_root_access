@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker via colima
+        run: |
+          brew install colima docker qemu
+          colima start --vm-type=qemu
+          colima status
+
+      - name: Pull eic_xl Docker image
+        run: docker pull eicweb/eic_xl:nightly
+
+      - name: Run podio_test.C in eic_xl container
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/workspace \
+            -w /workspace \
+            eicweb/eic_xl:nightly \
+            root -l -b -q podio_test.C
