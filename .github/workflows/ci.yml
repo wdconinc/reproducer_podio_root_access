@@ -14,7 +14,7 @@ jobs:
 
       - name: Set up Docker via colima
         run: |
-          brew install colima docker
+          brew install colima docker qemu
           colima start --vm-type=qemu
           colima status
 
