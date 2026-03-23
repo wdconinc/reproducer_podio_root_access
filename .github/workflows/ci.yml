@@ -15,7 +15,7 @@ jobs:
       - name: Set up Docker via colima
         run: |
           brew install colima docker
-          colima start
+          colima start --vm-type=qemu
           colima status
 
       - name: Pull eic_xl Docker image
