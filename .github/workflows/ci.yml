@@ -15,7 +15,8 @@ jobs:
       - name: Set up Docker via colima
         run: |
           brew install colima docker
-          colima start --wait
+          colima start
+          colima status
 
       - name: Pull eic_xl Docker image
         run: docker pull eicweb/eic_xl:nightly
